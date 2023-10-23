@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+*migrations*
+apps/courses/__pycache__*
+.vscode/launch.json
