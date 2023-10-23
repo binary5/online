@@ -1,5 +1,7 @@
-## 在线教育平台  
-[![Build Status](https://travis-ci.org/liangliangyy/DjangoBlog.svg?branch=master)](https://travis-ci.org/liangliangyy/DjangoBlog) [![python3.6](https://img.shields.io/badge/python-3.6-brightgreen.svg)]() [![django2.0](https://img.shields.io/badge/django-2.0-brightgreen.svg)]()   
+# 在线教育平台  
+[![Build Status](https://travis-ci.org/liangliangyy/DjangoBlog.svg?branch=master)](https://travis-ci.org/liangliangyy/DjangoBlog) 
+[![python3.6](https://img.shields.io/badge/python-3.6-brightgreen.svg)]() 
+[![django2.0](https://img.shields.io/badge/django-2.0-brightgreen.svg)]()   
 　　该平台的课程由各授课机构提供，授课机构中的各授课老师将录制的视频上传至平台，由平台进行呈现，学员通过平台进行在线学习。
 
     
