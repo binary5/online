@@ -26,8 +26,8 @@ from users.views import IndexView
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
-    path('admin/', xadmin.site.urls),
-
+    path('xadmin/', xadmin.site.urls),
+    path('admin/', admin.site.urls),
     # 验证码路由
     path('captcha/', include('captcha.urls')),
 

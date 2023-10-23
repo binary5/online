@@ -12,9 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import sys  # 配置app目录
-import pymysql  # 操作mysql 数据库
-
-pymysql.install_as_MySQLdb()
+# import pymysql  # 操作mysql 数据库
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -89,15 +87,21 @@ WSGI_APPLICATION = 'online.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+# pymysql.install_as_MySQLdb()
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'online',
-        'USER': 'root',
-        'PASSWORD': 'WZQwzq+123',
-        'HOST': '127.0.0.1',
-        'POST': '3306',
-    }
+    'default':{
+        'ENGINE':'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+    # 'default0': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'online',
+    #     'USER': 'root',
+    #     'PASSWORD': 'hy010112',
+    #     'HOST': '127.0.0.1',
+    #     'POST': '3306',
+    # }
 }
 
 # Password validation
