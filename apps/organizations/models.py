@@ -22,7 +22,7 @@ class City(models.Model):
 
 class Organizationinfo(models.Model):
     """授课机构信息"""
-    category_choices = (('gx', '高校'), ('pxjg', '培训机构'), ('gr', '个人'))
+    category_choices = (('gx', '高校'), ('pxjg', '培训机构'), ('gr', '个人'), ('zx', '中学'))
     category = models.CharField(verbose_name='机构类别', choices=category_choices, default='gx', max_length=20)
     city = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name='所在城市')
     name = models.CharField(verbose_name='机构名称', default='', max_length=100)
