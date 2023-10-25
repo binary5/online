@@ -4,3 +4,4 @@ __pycache__/
 apps/courses/__pycache__*
 .vscode/launch.json
 db.sqlite3
+media/
