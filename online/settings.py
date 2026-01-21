@@ -12,10 +12,10 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import sys  # 配置app目录
-# import pymysql  # 操作mysql 数据库
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
@@ -44,10 +44,13 @@ INSTALLED_APPS = [
     'organizations',
     'operation',
     'courses',
-    'xadmin',
-    'crispy_forms',
-    'captcha',  # 验证码包，需要配置url，并在数据库中生成表
-    'pure_pagination',  # 分页器,在下面有配置
+    'teacher',
+    'import_export',
+    # 'guardian',  # 暂时禁用，先完成其他表的迁移
+    # 'xadmin',
+    # 'crispy_forms',
+    # 'captcha',  # 验证码包，需要配置url，并在数据库中生成表
+    # 'pure_pagination',  # 分页器,在下面有配置
     # 'DjangoUeditor', # 富文本编辑器
 
 ]
@@ -85,22 +88,25 @@ TEMPLATES = [
 WSGI_APPLICATION = 'online.wsgi.application'
 
 # Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-# pymysql.install_as_MySQLdb()
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default':{
-        'ENGINE':'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'cloudschool_db',
+        'USER': 'postgres',
+        'PASSWORD': 'hy010112',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+        # 暂时移除 search_path，使用 public schema
+        # 'OPTIONS': {
+        #     'options': '-c search_path=online_schema,public'
+        # }
     },
-    # 'default0': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'online',
-    #     'USER': 'root',
-    #     'PASSWORD': 'hy010112',
-    #     'HOST': '127.0.0.1',
-    #     'POST': '3306',
+    # SQLite配置（已禁用）
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # }
 }
 
@@ -133,21 +139,17 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False  # 数据库获取本地时间,如果为True则取国际时间
+USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# STATIC_ROOT = '/var/www/online/static/'  # 项目上线使用
 
-# 解决：配置正确，而网页中文件无法加载的问题
-STATICFILES_DIRS = (
-    ('css', os.path.join(STATIC_ROOT, 'css').replace('\\', '/')),
-    ('js', os.path.join(STATIC_ROOT, 'js').replace('\\', '/')),
-    ('images', os.path.join(STATIC_ROOT, 'images').replace('\\', '/')),
-)
+# 配置用户上传的文件
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # 配置用户上传的文件
@@ -155,7 +157,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 需要配置TEMPLATES
 
 
-# UserProfile 覆盖了 django 内置的 users 表
+
+# 使用自定义用户模型
 AUTH_USER_MODEL = 'users.UserProfile'
 
 # 发送邮件功能设置
@@ -169,7 +172,9 @@ EMAIL_FROM = 'online_learn_edu@sina.com'  # 自定义配置，使用时需要引
 
 # 重写ModelBackend模块下的authenticate方法
 AUTHENTICATION_BACKENDS = (
-    'users.views.ChongxieAuthenticate',
+    'django.contrib.auth.backends.ModelBackend', # 这是Django默认的
+    'guardian.backends.ObjectPermissionBackend', # 这是guardian的
+    # 'users.views.ChongxieAuthenticate',
 )
 
 # 分页器
