@@ -158,8 +158,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 需要配置TEMPLATES
 
 
 
-# 使用自定义用户模型
-AUTH_USER_MODEL = 'users.UserProfile'
+# 使用默认用户模型 auth_user
+# AUTH_USER_MODEL = 'users.UserProfile'
 
 # 发送邮件功能设置
 EMAIL_HOST = 'smtp.sina.com'  # 使用SMTP服务器，需要在邮箱中开启此服务

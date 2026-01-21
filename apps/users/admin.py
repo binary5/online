@@ -7,9 +7,9 @@ from .models import UserProfile, EmailVerification, Banner
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ['username', 'nick_name', 'birthday', 'gender', 'address', 'mobile', 'add_time']
-    list_filter = ['gender']
-    search_fields = ['username', 'nick_name', 'mobile']
+    list_display = ['user', 'nick_name', 'birthday', 'gender', 'address', 'mobile', 'add_time']
+    list_filter = ['user', 'nick_name', 'gender']
+    search_fields = ['user__username', 'nick_name', 'mobile']
 
 
 class EmailVerificationAdmin(admin.ModelAdmin):

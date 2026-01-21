@@ -9,8 +9,9 @@ from courses.models import Courseinfo
 # Create your models here.
 
 
-class UserProfile(AbstractUser):
+class UserProfile(models.Model):
     """用户信息"""
+    user = models.OneToOneField('auth.User', on_delete=models.SET_NULL, null=True, blank=True, editable=True)
     nick_name = models.CharField(max_length=20, verbose_name='昵称', default='')
     birthday = models.DateTimeField(verbose_name='生日', null=True)
     gender = models.CharField(max_length=10, choices=(('male', '男'), ('female', '女')), default='male',
@@ -22,15 +23,17 @@ class UserProfile(AbstractUser):
 
     def get_unread_nums(self):
         """获取未读消息数量"""
+        if not self.user:
+            return 0
         from operation.models import UserMessage
-        return UserMessage.objects.filter(user_id=self.id, has_read=False).count()
+        return UserMessage.objects.filter(user_id=self.user.id, has_read=False).count()
 
     class Meta:
         verbose_name = '用户信息'
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.username
+        return self.user.username if self.user else "未关联用户"
 
 
 class EmailVerification(models.Model):
