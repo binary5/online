@@ -1,6 +1,6 @@
 {% extends 'org_base.html' %}
 
-{% load staticfiles %}
+{% load static %}
 
 {% block title %}
 机构教师
@@ -53,11 +53,11 @@
 
                 {% for page in org_teachers.pages %}
                     {% if page %}
-                    {% ifequal page org_teachers.number %}
+                    {% if page == org_teachers.number %}
                       <li class="active"><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
                     {% else %}
                     <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
-                    {% endifequal %}
+                    {% endif %}
                   {% else %}
                     <li class="none"><a href="">...</a></li>
                   {% endif %}

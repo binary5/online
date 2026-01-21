@@ -1,6 +1,6 @@
 {% extends 'usercenter_base.html' %}
 
-{% load staticfiles %}
+{% load static %}
 
 {% block title %} 我的收藏 {% endblock %}
 
@@ -11,10 +11,10 @@
 	<div class="wp list personal_list">
             <div class="left">
                 <ul>
-                    <li class="{% ifequal request.path|slice:'15' '/users/userinfo' %}active2{% endifequal %}"><a href="{% url 'users:userinfo' %}">个人资料</a></li>
-                    <li class="{% ifequal request.path|slice:'15' '/users/mycourse' %}active2{% endifequal %}"><a href="{% url 'users:mycourse' %}">我的课程</a></li>
-                    <li class="{% ifequal request.path|slice:'12' '/users/myfav' %}active2{% endifequal %}"><a href="{% url 'users:myfavorg' %}">我的收藏</a></li>
-                    <li class="{% ifequal request.path|slice:'16' '/users/mymessage' %}active2{% endifequal %}">
+                    <li class="{% if request.path|slice:'15' == '/users/userinfo' %}active2{% endif %}"><a href="{% url 'users:userinfo' %}">个人资料</a></li>
+                    <li class="{% if request.path|slice:'15' == '/users/mycourse' %}active2{% endif %}"><a href="{% url 'users:mycourse' %}">我的课程</a></li>
+                    <li class="{% if request.path|slice:'12' == '/users/myfav' %}active2{% endif %}"><a href="{% url 'users:myfavorg' %}">我的收藏</a></li>
+                    <li class="{% if request.path|slice:'16' == '/users/mymessage' %}active2{% endif %}">
                         <a href="{% url 'users:mymessage' %}" style="position: relative;">
                             我的消息
                         </a>
@@ -33,9 +33,9 @@
             <div class="personal_des permessage">
                 <div class="head">
                     <ul class="tab_header messagehead">
-                        <li class="{% ifequal request.path|slice:'15' '/users/myfavorg' %}active{% endifequal %}"><a href="{% url 'users:myfavorg' %}">课程机构</a> </li>
-                        <li class="{% ifequal request.path|slice:'19' '/users/myfavteacher' %}active{% endifequal %}"><a href="{% url 'users:myfavteacher' %}">授课教师 </a></li>
-                        <li class="{% ifequal request.path|slice:'18' '/users/myfavcourse' %}active{% endifequal %}"><a href="{% url 'users:myfavcourse' %}">公开课</a></li>
+                        <li class="{% if request.path|slice:'15' == '/users/myfavorg' %}active{% endif %}"><a href="{% url 'users:myfavorg' %}">课程机构</a> </li>
+                        <li class="{% if request.path|slice:'19' == '/users/myfavteacher' %}active{% endif %}"><a href="{% url 'users:myfavteacher' %}">授课教师 </a></li>
+                        <li class="{% if request.path|slice:'18' == '/users/myfavcourse' %}active{% endif %}"><a href="{% url 'users:myfavcourse' %}">公开课</a></li>
                     </ul>
                 </div>
                 <div class="messagelist">

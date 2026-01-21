@@ -19,20 +19,20 @@ from django.conf.urls.static import static  # 处理静态文件
 from django.contrib import admin
 from django.urls import path, include  # 等同于在django.conf.urls导入include
 
-# from users.views import IndexView
+from users.views import IndexView
 
 urlpatterns = [
-    # path('', IndexView.as_view(), name='index'),
+    path('', IndexView.as_view(), name='index'),
     path('admin/', admin.site.urls),
     
     # 课程机构相关 URL
-    # path(r'org/', include(('organizations.urls', 'organizations'), namespace='org')),
+    path('org/', include(('organizations.urls', 'organizations'), namespace='org')),
 
     # 课程相关 URL 配置
-    # path('courses/', include(('courses.urls', 'courses'), namespace='courses')),
+    path('courses/', include(('courses.urls', 'courses'), namespace='courses')),
 
     # 用户中心 URL 配置
-    # path('users/', include(('users.urls', 'users'), namespace='users')),
+    path('users/', include(('users.urls', 'users'), namespace='users')),
 
 ]
 

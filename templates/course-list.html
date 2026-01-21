@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load staticfiles %}
+{% load static %}
 
 {% block title %}公开课{% endblock %}
 {% block crumbs%}
@@ -22,9 +22,9 @@
 			<div class="left layout">
 				<div class="head">
 					<ul class="tab_header">
-						<li class="{% ifequal sort '' %}active{% endifequal %}"><a href="?sort=">最新 </a></li>
-						<li class="{% ifequal sort 'hot' %}active{% endifequal %}"><a href="?sort=hot">最热门</a></li>
-						<li class="{% ifequal sort 'students' %}active{% endifequal %}"><a href="?sort=students">参与人数</a></li>
+						<li class="{% if sort == '' %}active{% endif %}"><a href="?sort=">最新 </a></li>
+						<li class="{% if sort == 'hot' %}active{% endif %}"><a href="?sort=hot">最热门</a></li>
+						<li class="{% if sort == 'students' %}active{% endif %}"><a href="?sort=students">参与人数</a></li>
 					</ul>
 				</div>
                 <div id="inWindow">
@@ -65,11 +65,11 @@
                             {% for page in all_courses.pages %}
                              {% if page %}
 
-                                {% ifequal page all_courses.number %}
+                                {% if page == all_courses.number %}
                                     <li class="active"><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
                                 {% else %}
                                     <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
-                                {% endifequal %}
+                                {% endif %}
 
                              {% else %}
                                     <li class="none"><a href="">...</a></li>

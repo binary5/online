@@ -3,10 +3,7 @@
 __author__ = "问道编程"
 __date__ = "5/29/18 19:27"
 
-from django.conf.urls import url
 from django.urls import path
-
-
 from .views import CoursesListView, CourseDetailView, CourseVideoView, CourseCommentView,VideoPlayView
 
 urlpatterns = [

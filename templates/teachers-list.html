@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load staticfiles %}
+{% load static %}
 
 {% block title %}授课教师{% endblock %}
 {% block crumbs%}
@@ -21,8 +21,8 @@
 		<div class="butler_list layout">
 			<div class="head">
 				<ul class="fl tab_header">
-					<li class="{% ifequal sort '' %}active{% endifequal %}"><a href="?sort=">全部</a> </li>
-					<li class="{% ifequal sort 'hot' %}active{% endifequal %}"><a href="?sort=hot">人气 &#8595;</a></li>
+					<li class="{% if sort == '' %}active{% endif %}"><a href="?sort=">全部</a> </li>
+					<li class="{% if sort == 'hot' %}active{% endif %}"><a href="?sort=hot">人气 &#8595;</a></li>
 				</ul>
                 <div class="fr butler-num">共<span class="key">{{ te_nums }}</span>人&nbsp;&nbsp;&nbsp;</div>
 			</div>
@@ -79,11 +79,11 @@
 
                  {% for page in teachers.pages %}
                     {% if page %}
-                    {% ifequal page teachers.number %}
+                    {% if page == teachers.number %}
                  <li class="active"><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
                     {% else %}
                  <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
-                    {% endifequal %}
+                    {% endif %}
                   {% else %}
                  <li class="none"><a href="">...</a></li>
                   {% endif %}

@@ -46,13 +46,8 @@ INSTALLED_APPS = [
     'courses',
     'teacher',
     'import_export',
-    # 'guardian',  # 暂时禁用，先完成其他表的迁移
-    # 'xadmin',
-    # 'crispy_forms',
-    # 'captcha',  # 验证码包，需要配置url，并在数据库中生成表
-    # 'pure_pagination',  # 分页器,在下面有配置
-    # 'DjangoUeditor', # 富文本编辑器
-
+    'pure_pagination',
+    'captcha',
 ]
 
 MIDDLEWARE = [
