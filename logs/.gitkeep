@@ -1,0 +1,5 @@
+# 日志文件目录
+# 此目录用于存储不同环境的日志文件：
+# - development.log: 开发测试环境日志
+# - production.log: 正式生产环境日志
+# - production_error.log: 正式生产环境错误日志
