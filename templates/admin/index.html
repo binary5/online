@@ -1,0 +1,48 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site administration') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'css/admin.css' %}" />
+<style>
+    /* 修复全局 CSS 冲突 */
+    body, h1, h2, h3, h4, h5, h6, hr, p, dl, dt, dd, ul, ol, li, pre, button, input, textarea, th, td {
+        text-indent: 0 !important;
+    }
+    
+    /* 确保表格正常显示 */
+    #result_list thead th,
+    #result_list tbody td {
+        text-indent: 0 !important;
+        border: none !important;
+    }
+    
+    #result_list thead th {
+        border-bottom: 2px solid #ddd !important;
+    }
+    
+    #result_list tbody td {
+        border-bottom: 1px solid #eee !important;
+    }
+    
+    /* 修复表单输入框 */
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    textarea,
+    select {
+        text-indent: 0 !important;
+    }
+</style>
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} admin-layout{% endblock %}

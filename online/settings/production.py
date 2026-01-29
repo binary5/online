@@ -5,7 +5,7 @@ Production environment settings
 from .base import *
 import os
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -21,6 +21,10 @@ DATABASES = {
 }
 
 WSGI_APPLICATION = 'online.wsgi.application'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join('S:', 'media')
+
 
 # 正式生产环境日志配置
 LOGGING = {

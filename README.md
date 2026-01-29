@@ -1,15 +1,8 @@
-# 线上学校
+# 线上学校 - 在线学习平台
 
-该平台的课程由各授课机构提供，授课机构中的各授课老师将录制的视频上传至平台，由平台进行呈现，学员通过平台进行在线学习。
+## 项目简介
 
-## 主要功能
-
-- 账号注册、激活、登录、密码找回等功能
-- 个人中心页面支持`个人信息`、`我的课程`、`我的收藏`、`我的消息`管理
-- 首页轮播图、机构、课程展示
-- 支持讲师、课程、机构选项的全局搜索
-- 侧边栏提供热门课程推荐、机构/讲师排名、课程咨询
-- 支持授课机构按类别、按地区筛选，按学习人数、课程数排序
+在线学习平台，提供课程展示、机构介绍、教师管理等功能。
 
 ## 技术栈
 
@@ -17,121 +10,134 @@
 |------|------|
 | Python | 3.10+ |
 | Django | 4.2.6 |
-| PostgreSQL | 15 |
-| uvicorn | 0.40.0 |
+| PostgreSQL | 17 |
+| Uvicorn | 0.40.0 |
 | Nginx | 1.25.3 |
 
-## 快速启动
+## 快速开始
 
-### 1. 创建虚拟环境
+### 方式1：使用 S:/SiteWorkspace 脚本（推荐）
 
-```bash
-cd E:\NetSiteWorkspace\online
-python -m venv venv
-venv\Scripts\activate
-```
-
-### 2. 安装依赖
-
-```bash
-pip install -r requirements.txt
-```
-
-### 3. 配置数据库
-
-确保 PostgreSQL 数据库 `cloudschool_db` 已创建。
-
-### 4. 运行服务
-
-**一键启动（推荐）：**
 ```bash
 # 开发环境
-start.bat
+S:\SiteWorkspace\start.bat
 
-# 或生产环境
-start_prod.bat
+# 生产环境
+S:\SiteWorkspace\start_prod.bat
 ```
 
-**或手动启动：**
+### 方式2：直接使用 Django 命令（跨平台）
+
 ```bash
-# 终端 1 - Uvicorn
-cd E:\NetSiteWorkspace\online
-venv\Scripts\python.exe run.py
+# 进入 online 目录
+cd S:\SiteWorkspace\online
 
-# 终端 2 - Nginx
-cd E:\NetSiteWorkspace\nginx-1.25.3
-nginx.exe
+# 激活 conda 环境
+conda activate online_env
+
+# 首次使用：数据库迁移
+python manage.py migrate
+
+# 启动开发服务器
+python manage.py runserver
+
+# 或使用 Uvicorn (推荐)
+python run.py
 ```
-
-### 5. 访问地址
-
-| 地址 | 说明 |
-|------|------|
-| http://localhost/ | 网站首页 |
-| http://localhost/admin/ | 管理后台 |
 
 ## 停止服务
 
 ```bash
-stop.bat
+S:\SiteWorkspace\stop.bat
 ```
 
-## 架构说明
+## 访问地址
 
-```
-用户请求 (80) → Nginx → Uvicorn (8000) → Django 应用
-                           ↓
-                    静态文件直接响应
-```
+| 页面 | 开发环境 | 生产环境 |
+|------|---------|---------|
+| 网站首页 | http://127.0.0.1:8000/ | http://192.168.31.6/ |
+| 管理后台 | http://127.0.0.1:8000/admin/ | http://192.168.31.6/admin/ |
 
-## 环境配置
+## 管理员账号
 
-项目支持多环境配置，配置文件位于 `online/settings/` 目录：
-
-| 文件 | 说明 |
-|------|------|
-| `base.py` | 通用配置 |
-| `development.py` | 开发环境（DEBUG=True） |
-| `production.py` | 生产环境（DEBUG=False） |
-
-切换环境通过环境变量 `DJANGO_ENVIRONMENT` 控制，默认为 `development`。
+| 用户名 | 密码 | 邮箱 |
+|--------|-------|-------|
+| root | hy010112 | admin@example.com |
 
 ## 项目结构
 
 ```
 online/
 ├── apps/              # Django 应用
-│   ├── users/         # 用户模块
-│   ├── courses/       # 课程模块
-│   ├── organizations/ # 机构模块
-│   ├── operation/     # 操作模块
-│   └── teacher/       # 教师模块
+│   ├── users/         # 用户管理
+│   ├── organizations/ # 机构管理
+│   ├── courses/       # 课程管理
+│   ├── operation/     # 运营管理
+│   └── teacher/       # 教师管理
 ├── online/            # 项目配置
 │   ├── settings/      # 环境配置
-│   ├── urls.py        # URL 路由
-│   └── wsgi.py        # WSGI 配置
-├── templates/         # HTML 模板
-├── static/            # 静态文件
-├── media/             # 媒体文件
-├── extra_apps/        # 第三方应用
-├── run.py             # Uvicorn 启动脚本
-├── manage.py          # Django 管理脚本
-└── requirements.txt   # 依赖列表
+│   ├── urls.py       # URL 路由
+│   └── asgi.py      # ASGI 配置
+├── templates/         # 模板文件
+├── media/            # 媒体文件
+├── logs/             # 日志文件
+├── extra_apps/       # 第三方应用
+├── run.py           # Uvicorn 启动脚本
+├── manage.py        # Django 管理脚本
+└── requirements.txt # 依赖列表
 ```
+
+## 常用命令
+
+### 数据库操作
+```bash
+python manage.py makemigrations  # 创建迁移
+python manage.py migrate         # 应用迁移
+python manage.py createsuperuser # 创建管理员
+```
+
+### 收集静态文件
+```bash
+python manage.py collectstatic --noinput
+```
+
+## 环境配置
+
+| 环境 | DEBUG | 日志文件 | 日志级别 |
+|------|-------|----------|----------|
+| 开发 | True | development.log | DEBUG |
+| 生产 | False | production.log | INFO |
+
+切换环境通过环境变量 `DJANGO_ENVIRONMENT` 控制。
 
 ## 常见问题
 
-### 502 Bad Gateway
-- 确保 Uvicorn 和 Nginx 都在运行
-- 运行 `stop.bat` 然后 `start.bat`
-
-### 端口被占用
+### 1. 502 Bad Gateway
+确保 Uvicorn 和 Nginx 都在运行：
 ```bash
+# 停止并重启
+S:\SiteWorkspace\stop.bat
+S:\SiteWorkspace\start_prod.bat
+```
+
+### 2. 端口被占用
+```bash
+# 停止占用端口的进程
 taskkill /F /IM python.exe /IM nginx.exe
 ```
 
-### Gunicorn 无法运行
-Windows 不支持 Gunicorn，请使用项目配置的 Uvicorn。
+### 3. 数据库连接失败
+检查 PostgreSQL 服务是否启动，密码是否正确（hy010112）。
+
+### 4. 管理员登录失败
+清除浏览器缓存后重试，或重新创建管理员：
+```bash
+python manage.py createsuperuser
+```
+
+## 详细文档
+
+更多配置信息请查看：`S:\SiteWorkspace\PROJECT_GUIDE.md`
 
 ## 许可证
 
